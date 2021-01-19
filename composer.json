@@ -1,5 +1,5 @@
 {
-    "name": "spatie/docker",
+    "name": "spatie/dockerfork",
     "description": "Run a docker container in your PHPUnit tests",
     "keywords": [
         "spatie",
@@ -19,7 +19,14 @@
             "email": "freek@spatie.be",
             "homepage": "https://spatie.be",
             "role": "Developer"
+        },
+        {
+            "name": "Alvaro Ruben Mercado Villalba",
+            "email": "alvar01omer@gmail.com",
+            "homepage": "https://github.com/Alvar01o",
+            "role": "Developer"
         }
+        
     ],
     "require": {
         "php": "^7.4 || ^8.0",
