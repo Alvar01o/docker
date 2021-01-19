@@ -3,7 +3,7 @@
 namespace Spatie\Docker\Exceptions;
 
 use Exception;
-use Spatie\Docker\DockerCompose;
+use Spatie\Docker\DockerCompose\DockerCompose;
 use Symfony\Component\Process\Process;
 
 class CouldNotStartDockerCompose extends Exception

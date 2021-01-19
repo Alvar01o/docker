@@ -1,5 +1,5 @@
 <?php
-namespace Spatie\DockerCompose;
+namespace Spatie\Docker\DockerCompose;
 
 use Symfony\Component\Process\Process;
 use Spatie\Docker\Exceptions\ErrorInCommandFormat;
@@ -12,12 +12,16 @@ class DockerCompose
 
     private Array $options;
 
+    public int $timeOut;
+
     public function __construct(string $path) {
         $this->directory = $path;
+        $this->options = [];
+        $this->timeOut = 300;
     }
 
     public function getOptions(){
-        return implode($this->options , ' ');
+        return implode(' ', $this->options);
     }
 
     public function up()
@@ -38,25 +42,23 @@ class DockerCompose
         }
     }
 
-    public function move()
+    public function move($process, $path)
     {
-        $command = "cd ".$this->directory;
-        $process = Process::fromShellCommandline($command);
-
-        $process->run();
-
-        if (!$process->isSuccessful()) {
-            throw MovingError::processFailed($this, $process);
-        }
+        return $process->setWorkingDirectory($path);
     }
 
+    public function setTimeout(){
+
+    }
     public function start()
     {
-        $this->move($this->directory);
-
         $command = $this->getStartCommand();
 
         $process = Process::fromShellCommandline($command);
+
+        $this->move($process , $this->directory);
+
+        $process->setTimeout($this->timeOut);
 
         $process->run();
 
