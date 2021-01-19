@@ -1,5 +1,5 @@
 {
-    "name": "spatie/dockerfork",
+    "name": "alvar01o/docker",
     "description": "Run a docker container in your PHPUnit tests",
     "keywords": [
         "spatie",
