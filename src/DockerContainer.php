@@ -143,7 +143,7 @@ class DockerContainer
 
         $process->run();
 
-        if (! $process->isSuccessful()) {
+        if (!$process->isSuccessful()) {
             throw CouldNotStartDockerContainer::processFailed($this, $process);
         }
 
