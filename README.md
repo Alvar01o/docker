@@ -30,7 +30,7 @@ By default the container will be daemonized and it will be cleaned up after it e
 
 You can get a docker compose command using
 ```php
-$dockerComposeDirectory = './scripts/girs-commands';
+$dockerComposeDirectory = './scripts/laravel-commands';
 $dockerCompose = new DockerCompose($dockerComposeDirectory);
 $dockerCompose->up();
 $dockerCompose->start();
