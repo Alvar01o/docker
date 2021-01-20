@@ -10,6 +10,6 @@ class CouldNotStartDockerCompose extends Exception
 {
     public static function processFailed(DockerCompose $compose, Process $process)
     {
-        return new static("Could not start docker-compose on {$compose->directory}`. Process output: `{$process->getErrorOutput()}`");
+        return new static("Could not start {$compose->getStartCommand()} on {$compose->directory}`. Process output: `{$process->getErrorOutput()}`");
     }
 }

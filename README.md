@@ -1,10 +1,6 @@
-# Manage docker containers with PHP
+# Manage docker containers with PHP 
 
-[![Latest Version on Packagist](https://img.shields.io/packagist/v/spatie/docker.svg?style=flat-square)](https://packagist.org/packages/spatie/docker)
-[![GitHub Tests Action Status](https://img.shields.io/github/workflow/status/spatie/docker/run-tests?label=tests)](https://github.com/spatie/docker/actions?query=workflow%3Arun-tests+branch%3Amaster)
-[![Total Downloads](https://img.shields.io/packagist/dt/spatie/docker.svg?style=flat-square)](https://packagist.org/packages/spatie/docker)
-
-This package provides a nice way to start docker containers and execute commands on them.
+This package is a fork from spatie/docker and provides a nice way to start docker containers, docker-compose commands.
 
 ````php
 $containerInstance = DockerContainer::create($imageName)->start();
@@ -14,20 +10,12 @@ $process = $containerInstance->execute('whoami');
 $process->getOutput(); // returns the name of the user inside the docker container
 ````
 
-## Support us
-
-[<img src="https://github-ads.s3.eu-central-1.amazonaws.com/docker.jpg?t=1" width="419px" />](https://spatie.be/github-ad-click/docker)
-
-We invest a lot of resources into creating [best in class open source packages](https://spatie.be/open-source). You can support us by [buying one of our paid products](https://spatie.be/open-source/support-us).
-
-We highly appreciate you sending us a postcard from your hometown, mentioning which of our package(s) you are using. You'll find our address on [our contact page](https://spatie.be/about-us). We publish all received postcards on [our virtual postcard wall](https://spatie.be/open-source/postcards).
-
 ## Installation
 
 You can install the package via composer:
 
 ```bash
-composer require spatie/docker
+composer require alvar01o/docker
 ```
 
 ## Usage
@@ -40,6 +28,13 @@ $containerInstance = DockerContainer::create($imageName)->start();
 
 By default the container will be daemonized and it will be cleaned up after it exists.
 
+You can get a docker compose command using
+```php
+$dockerComposeDirectory = './scripts/girs-commands';
+$dockerCompose = new DockerCompose($dockerComposeDirectory);
+$dockerCompose->up();
+$dockerCompose->start();
+```
 ### Customizing the docker container
 
 #### Prevent daemonization
@@ -249,6 +244,7 @@ If you discover any security related issues, please email freek@spatie.be instea
 
 - [Ruben Van Assche](https://github.com/rubenvanassche)
 - [Freek Van der Herten](https://github.com/freekmurze)
+- [Alvaro Mercado](https://github.com/Alvar01o)
 - [All Contributors](../../contributors)
 
 ## License
