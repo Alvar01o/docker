@@ -31,19 +31,28 @@ class DockerCompose
 
     public function up()
     {
-        if(in_array('down' , $this->options)){
+        if(in_array(['down', 'stop']  , $this->options)){
             ErrorInCommandFormat::processFailed();
         } else {
             $this->options[] = 'up';
         }
     }
 
-    public function down()
+    public function stop()
     {
-        if(in_array('up' , $this->options)){
+        if(in_array(['up', 'down'] , $this->options)){
             ErrorInCommandFormat::processFailed();
         } else {
-            $this->options[] = 'down';
+            $this->options = ['stop'];
+        }
+    }
+
+    public function down()
+    {
+        if(in_array(['up', 'stop'] , $this->options)){
+            ErrorInCommandFormat::processFailed();
+        } else {
+            $this->options = ['down'];
         }
     }
 
@@ -55,7 +64,6 @@ class DockerCompose
     public function setTimeout($ttl){
         $this->ttl = $ttl;
     }
-
 
     public function startRealTime(){
 
@@ -74,9 +82,9 @@ class DockerCompose
                 echo 'OUT > '.$buffer;
             }
         });
-
     }
-    public function start()
+
+    public function start() : Process
     {
         $command = $this->getStartCommand();
 
@@ -89,12 +97,46 @@ class DockerCompose
         $process->run();
         if (!$process->isSuccessful()) {
             throw CouldNotStartDockerCompose::processFailed($this, $process);
+        } else {
+            return $process;
         }
     }
 
     public function getStartCommand() : string
     {
         return "docker-compose ".$this->getOptions();
+    }
+    public function command($containerName , $command){
+        //implement docker-compose docker-compose exec <containerName> <command>
+        $cmd = "winpty docker-compose exec $containerName $command";
+
+        $process = new Process(['docker-compose' , 'exec' , $containerName , $command]);
+
+        $this->move($process , $this->directory);
+
+        $process->run(function ($type, $buffer) {
+            if (Process::ERR === $type) {
+                echo 'ERR > '.$buffer;
+            } else {
+                echo 'OUT > '.$buffer;
+            }
+        });
+    }
+
+    public function exec($containerName , $command){
+        //implement docker-compose docker-compose exec <containerName> <command>
+        $process = Process::fromShellCommandline($command);
+
+        $this->move($process , $this->directory);
+
+        $process->setTimeout($this->ttl);
+
+        $process->run();
+        if (!$process->isSuccessful()) {
+            throw CouldNotStartDockerCompose::processFailed($this, $process);
+        } else {
+            return $process;
+        }
     }
 
 }

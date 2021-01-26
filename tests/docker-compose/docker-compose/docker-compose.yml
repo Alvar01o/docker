@@ -1,0 +1,24 @@
+version: "2"
+
+services:
+  # The Application
+  commands:
+    image: nginx
+    working_dir: /var/www
+    container_name: commands
+    tty: true
+    volumes:
+      - ./:/var/www
+      - //var/run/docker.sock:/var/run/docker.sock
+    privileged: true
+#  The Database
+#  commands-db:
+#    image: mysql:5.7
+#    ports:
+#      - "3306:3306"
+#    container_name: commands-db
+#    volumes:
+#      - commands-dbdata:/var/lib/mysql
+#    environment:
+#      - "MYSQL_ROOT_PASSWORD=password"
+#      - "MYSQL_DATABASE=girs_commands"

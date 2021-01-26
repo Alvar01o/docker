@@ -26,7 +26,6 @@
             "homepage": "https://github.com/Alvar01o",
             "role": "Developer"
         }
-        
     ],
     "require": {
         "php": "^7.4 || ^8.0",
@@ -36,7 +35,9 @@
     "require-dev": {
         "phpunit/phpunit": "^8.2 || ^9.0",
         "spatie/ssh": "dev-master",
-        "symfony/var-dumper": "^4.3"
+        "symfony/var-dumper": "^4.3",
+        "laravel/homestead": "^7",
+        "laravel/installer": "^1.3 !=1.3.2"
     },
     "autoload": {
         "psr-4": {
@@ -51,7 +52,6 @@
     "scripts": {
         "test": "chmod -R 700 tests/keys && vendor/bin/phpunit",
         "build-docker": "docker build -t spatie/docker ./tests/docker",
-
         "test-coverage": "vendor/bin/phpunit --coverage-html coverage"
     },
     "config": {

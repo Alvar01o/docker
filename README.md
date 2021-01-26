@@ -35,6 +35,8 @@ $dockerCompose = new DockerCompose($dockerComposeDirectory);
 $dockerCompose->up();
 $dockerCompose->start();
 ```
+
+
 ### Customizing the docker container
 
 #### Prevent daemonization
